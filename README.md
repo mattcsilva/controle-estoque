@@ -11,7 +11,7 @@ Primeiro passo, clonar o projeto:
 git clone https://github.com/mattcsilva/controle-estoque.git
 
 # Acessar
-cd laravel_estoque
+cd controle-estoque
 ```
 
 ## Configuração
