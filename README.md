@@ -2,7 +2,7 @@
 
 # Controle de estoque
 
-[Postman Collection](https://documenter.getpostman.com/view/4149600/T1LSA5NB?version=latest#8af036b8-e7a2-4173-9c60-bc55c1535db8)
+[Postman Collection](https://documenter.getpostman.com/view/4149600/T1LSA5NB?version=latest)
 
 ## Baixar o projeto
 Primeiro passo, clonar o projeto:
