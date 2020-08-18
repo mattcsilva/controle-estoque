@@ -6,6 +6,8 @@ use App\Cliente;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
+use App\Http\Requests\ClienteFormRequest;
+
 class ClienteController extends Controller
 {
     /**

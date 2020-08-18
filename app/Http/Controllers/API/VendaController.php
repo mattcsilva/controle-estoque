@@ -21,16 +21,6 @@ class VendaController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -38,7 +28,9 @@ class VendaController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $data = Venda::create($request->all());
+
+        return response()->json($data, 200);
     }
 
     /**
@@ -49,18 +41,9 @@ class VendaController extends Controller
      */
     public function show($id)
     {
-        //
-    }
+        $data = Venda::find($id);
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
+        return response()->json($data, 200);
     }
 
     /**
@@ -72,7 +55,11 @@ class VendaController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $data = Venda::find($id);
+        $data->fill($request->all());
+        $data->save();
+
+        return response()->json($data, 200);
     }
 
     /**
@@ -83,6 +70,9 @@ class VendaController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $data = Venda::find($id);
+        $data->delete();
+
+        return response()->json([], 200);
     }
 }

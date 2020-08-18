@@ -11,21 +11,14 @@ class ItemVendaController extends Controller
     /**
      * Display a listing of the resource.
      *
+     * @param  int  $id_venda
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index($id_venda)
     {
-        //   
-    }
+        $data = ItemVenda::all()->where('id_venda', '=', $id_venda);
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
+        return response()->json($data, 200);
     }
 
     /**
@@ -36,53 +29,54 @@ class ItemVendaController extends Controller
      */
     public function store(Request $request)
     {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        $data = ItemVenda::where('id_venda', '=', $id);
+        $data = ItemVenda::create($request->all());
 
         return response()->json($data, 200);
     }
 
     /**
-     * Show the form for editing the specified resource.
+     * Display the specified resource.
      *
+     * @param  int  $id_venda
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function show($id_venda, $id)
     {
-        //
+        $data = ItemVenda::all()->where('id_venda', '=', $id_venda)->find($id);
+
+        return response()->json($data, 200);
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id_venda
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, $id_venda, $id)
     {
-        //
+        $item = ItemVenda::all()->where('id_venda', '=', $id_venda)->find($id);
+        $item->fill($request->all());
+        $item->save();
+
+        return response()->json($item, 201);
     }
 
     /**
      * Remove the specified resource from storage.
      *
+     * @param  int  $id_venda
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy($id_venda, $id)
     {
-        //
+        $item = ItemVenda::all()->where('id_venda', '=', $id_venda)->find($id);
+        $item->delete();
+
+        return response()->json([], 200);
     }
 }

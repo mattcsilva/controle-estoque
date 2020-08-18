@@ -18,6 +18,8 @@ class CreateProdutosTable extends Migration
             $table->text('descricao');
             $table->enum('unidade_medida', ['m2', 'cm', 'UN', 'kg', 'l', 'X']);
             $table->decimal('custo');
+            $table->decimal('preco');
+            $table->integer('estoque');
             $table->timestamps();
             $table->bigInteger('id_fornecedor');
 
