@@ -28,6 +28,18 @@ class ProdutoController extends Controller
      */
     public function store(Request $request)
     {
+        $request->validate([
+            'descricao'      => 'required|min:3',
+            'unidade_medida'  => 'required|min:1',
+            'custo'  => 'required|min:1',
+            'preco'  => 'required|min:1',
+            'estoque'  => 'required|min:1',
+            'id_fornecedor'  => 'required|min:1'
+        ], [
+            'required'  => 'A propriedade é obrigatória!',
+            'min'       => 'Informe um valor válido!'
+        ]);
+
         $data = Produto::create($request->all());
 
         return response()->json($data, 200);

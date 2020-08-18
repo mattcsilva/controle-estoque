@@ -5,6 +5,7 @@ namespace App\Http\Controllers\API;
 use App\Http\Controllers\Controller;
 use App\Venda;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class VendaController extends Controller
 {
@@ -15,7 +16,11 @@ class VendaController extends Controller
      */
     public function index()
     {
-        $data = Venda::all();
+        $data = DB::table('vendas')
+        ->join('clientes', 'vendas.id_cliente', '=', 'clientes.id')
+        ->join('vendedors', 'vendas.id_cliente', '=', 'vendedors.id')
+        ->select('vendas.*', 'clientes.nome as cliente', 'vendedors.nome as vendedor')
+        ->get();
 
         return response()->json($data, 200);
     }
@@ -28,6 +33,15 @@ class VendaController extends Controller
      */
     public function store(Request $request)
     {
+        $request->validate([
+            'valor_total' => 'required|min:1',
+            'id_cliente'  => 'required|min:1',
+            'id_vendedor' => 'required|min:1'
+        ], [
+            'required'  => 'A propriedade é obrigatória!',
+            'min'       => 'Informe um valor válido!'
+        ]);
+
         $data = Venda::create($request->all());
 
         return response()->json($data, 200);

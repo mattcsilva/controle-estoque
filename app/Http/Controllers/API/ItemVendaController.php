@@ -5,6 +5,7 @@ namespace App\Http\Controllers\API;
 use App\Http\Controllers\Controller;
 use App\ItemVenda;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class ItemVendaController extends Controller
 {
@@ -16,7 +17,11 @@ class ItemVendaController extends Controller
      */
     public function index($id_venda)
     {
-        $data = ItemVenda::all()->where('id_venda', '=', $id_venda);
+        $data = DB::table('item_vendas')
+        ->join('produtos', 'item_vendas.id_produto', '=', 'produtos.id')
+        ->where('id_venda', '=', $id_venda)
+        ->select('item_vendas.*', 'produtos.descricao')
+        ->get();
 
         return response()->json($data, 200);
     }
