@@ -8,7 +8,7 @@
 Primeiro passo, clonar o projeto:
 ``` bash
 # Clonar
-git clone https://github.com/mattcsilva/laravel_estoque.git
+git clone https://github.com/mattcsilva/controle-estoque.git
 
 # Acessar
 cd laravel_estoque
