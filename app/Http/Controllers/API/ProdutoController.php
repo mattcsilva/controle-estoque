@@ -26,19 +26,19 @@ class ProdutoController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(\App\Http\Requests\ProdutoRequest $request)
     {
-        $request->validate([
-            'descricao'      => 'required|min:3',
-            'unidade_medida'  => 'required|min:1',
-            'custo'  => 'required|min:1',
-            'preco'  => 'required|min:1',
-            'estoque'  => 'required|min:1',
-            'id_fornecedor'  => 'required|min:1'
-        ], [
-            'required'  => 'A propriedade é obrigatória!',
-            'min'       => 'Informe um valor válido!'
-        ]);
+        $id_fornecedor = $request->id_fornecedor;
+
+        $fornecedor = \App\Fornecedor::find($id_fornecedor);
+
+        $message = array();
+
+        if($fornecedor == null)
+            array_push($message, "Fornecedor não existe!");
+
+        if(sizeof($message) > 0)
+            return response()->json($message, 200);
 
         $data = Produto::create($request->all());
 

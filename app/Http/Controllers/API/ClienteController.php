@@ -26,17 +26,8 @@ class ClienteController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(\App\Http\Requests\ClienteRequest $request)
     {
-        $request->validate([
-            'nome'      => 'required|min:1',
-            'cnpj_cpf'  => 'required|min:8',
-            'telefone'  => 'required|min:8'
-        ], [
-            'required'  => 'A propriedade é obrigatória!',
-            'min'       => 'Informe um valor válido!'
-        ]);
-
         $data = Cliente::create($request->all());
 
         return response()->json($data, 200);

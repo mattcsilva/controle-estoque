@@ -18,7 +18,7 @@ class VendaController extends Controller
     {
         $data = DB::table('vendas')
         ->join('clientes', 'vendas.id_cliente', '=', 'clientes.id')
-        ->join('vendedors', 'vendas.id_cliente', '=', 'vendedors.id')
+        ->join('vendedors', 'vendas.id_vendedor', '=', 'vendedors.id')
         ->select('vendas.*', 'clientes.nome as cliente', 'vendedors.nome as vendedor')
         ->get();
 
@@ -31,16 +31,23 @@ class VendaController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(\App\Http\Requests\VendaRequest $request)
     {
-        $request->validate([
-            'valor_total' => 'required|min:1',
-            'id_cliente'  => 'required|min:1',
-            'id_vendedor' => 'required|min:1'
-        ], [
-            'required'  => 'A propriedade é obrigatória!',
-            'min'       => 'Informe um valor válido!'
-        ]);
+        $id_cliente = $request->id_cliente;
+        $id_vendedor = $request->id_vendedor;
+
+        $cliente = \App\Cliente::find($id_cliente);
+        $vendedor = \App\Vendedor::find($id_vendedor);
+
+        $message = array();
+
+        if($cliente == null)
+            array_push($message, "Cliente não existe!");
+        if($vendedor == null)
+            array_push($message, "Vendedor não existe!");
+
+        if(sizeof($message) > 0)
+            return response()->json($message, 200);
 
         $data = Venda::create($request->all());
 

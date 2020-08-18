@@ -16,6 +16,7 @@ class CreateItemVendasTable extends Migration
         Schema::create('item_vendas', function (Blueprint $table) {
             $table->id();
             $table->decimal('custo');
+            $table->decimal('preco');
             $table->integer('quantidade');
             $table->timestamps();
             $table->bigInteger('id_venda');
