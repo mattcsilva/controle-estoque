@@ -15,7 +15,7 @@ class CreateVendasTable extends Migration
     {
         Schema::create('vendas', function (Blueprint $table) {
             $table->id();
-            $table->decimal('valor_total');
+            $table->decimal('valor_total')->default(0);
             $table->timestamps();
             $table->bigInteger('id_cliente');
             $table->bigInteger('id_vendedor');

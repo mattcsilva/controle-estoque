@@ -24,7 +24,6 @@ class VendaRequest extends FormRequest
     public function rules()
     {
         return [
-            'valor_total' => 'required|min:1',
             'id_cliente'  => 'required|min:1',
             'id_vendedor' => 'required|min:1'
         ];
